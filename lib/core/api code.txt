@@ -1,0 +1,288 @@
+import 'package:dio/dio.dart';
+import 'package:flutter/material.dart';
+
+void main() {
+  runApp(MyApp());
+}
+
+class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      title: 'Flutter API Example',
+      theme: ThemeData(
+        primarySwatch: Colors.blue,
+      ),
+      home: ProductListScreen(),
+    );
+  }
+}
+
+class ProductListScreen extends StatefulWidget {
+  const ProductListScreen({super.key});
+
+  @override
+  State<StatefulWidget> createState() => _ProductListScreenState();
+}
+
+class _ProductListScreenState extends State<ProductListScreen> {
+  final ApiService apiService = ApiService(Dio());
+  List<Product> products = [];
+  bool isLoading = true;
+  String errorMessage = '';
+
+  @override
+  void initState() {
+    super.initState();
+    _fetchProducts();
+  }
+
+  // Fetch products from API
+  Future<void> _fetchProducts() async {
+    //استخدمي
+    //  shared_preferences
+    // لحفظ البيانات
+    String token =
+        'eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhYmNkIiwiaWF0IjoxNzM3NzQxMzQzLCJleHAiOjE3Mzc3NDI3ODN9.9lHN3kVAvcsI0aL1-4n_tpnt3ASQLsdKxjq3w-D_eZs';
+    try {
+      final response = await apiService
+          .get('http://152.53.32.75:8000/api/product', token: token);
+      setState(() {
+        products =
+            (response as List).map((item) => Product.fromJson(item)).toList();
+        isLoading = false;
+      });
+    } catch (e) {
+      setState(() {
+        errorMessage = '$e';
+        isLoading = false;
+      });
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Product List'),
+      ),
+      body: isLoading
+          ? Center(child: CircularProgressIndicator())
+          : errorMessage.isNotEmpty
+              ? Center(child: Text(errorMessage))
+              : ListView.builder(
+                  itemCount: products.length,
+                  itemBuilder: (context, index) {
+                    final product = products[index];
+                    return ListTile(
+                      leading: Image.network(product.imageURL),
+                      title: Text(product.productName),
+                      subtitle: Text('Barcode: ${product.barcode}'),
+                      trailing: Icon(Icons.arrow_forward),
+                      onTap: () {
+                        // Handle item tap (for example, navigate to product details)
+                      },
+                    );
+                  },
+                ),
+    );
+  }
+}
+
+class Product {
+  final int id;
+  final String productName;
+  final String barcode;
+  final int positiveVotes;
+  final int negativeVotes;
+  final String imageURL;
+  final int alternatives;
+  final String? voteStatus;
+
+  Product({
+    required this.id,
+    required this.productName,
+    required this.barcode,
+    required this.positiveVotes,
+    required this.negativeVotes,
+    required this.imageURL,
+    required this.alternatives,
+    this.voteStatus,
+  });
+
+  // From JSON
+  factory Product.fromJson(Map<String, dynamic> json) {
+    return Product(
+      id: json['id'],
+      productName: json['productName'],
+      barcode: json['barcode'],
+      positiveVotes: json['positiveVotes'],
+      negativeVotes: json['negativeVotes'],
+      imageURL: json['imageURL'],
+      alternatives: json['alternatives'],
+      voteStatus: json['voteStatus'],
+    );
+  }
+
+  // To JSON
+  Map<String, dynamic> toJson() {
+    return {
+      'id': id,
+      'productName': productName,
+      'barcode': barcode,
+      'positiveVotes': positiveVotes,
+      'negativeVotes': negativeVotes,
+      'imageURL': imageURL,
+      'alternatives': alternatives,
+      'voteStatus': voteStatus,
+    };
+  }
+}
+
+class ApiService {
+  final Dio dio;
+
+  ApiService(this.dio);
+
+  // GET request
+  Future<dynamic> get(String path,
+      {Object? data,
+      Map<String, dynamic>? queryParameters,
+      String? token}) async {
+    try {
+      final response = await dio.get(path,queryParameters: queryParameters,
+        options: Options(
+          headers: token != null ? {'Authorization': 'Bearer $token'} : {},
+        ),
+      );
+      return response.data;
+    } on DioException catch (e) {
+      _handleError(e);
+    } catch (e) {
+      throw Exception('$e');
+    }
+  }
+
+  // POST request
+  Future<dynamic> post(String path,
+      {Object? data,
+      Map<String, dynamic>? queryParameters,
+      String? token}) async {
+    try {
+      final response = await dio.post(
+        path,
+        data: data,
+        queryParameters: queryParameters,
+        options: Options(
+          headers: token != null ? {'Authorization': 'Bearer $token'} : {},
+        ),
+      );
+      return response.data;
+    } on DioException catch (e) {
+      _handleError(e);
+    } catch (e) {
+      throw Exception('$e');
+    }
+  }
+
+  // PUT request
+  Future<dynamic> put(String path,
+      {Object? data,
+      Map<String, dynamic>? queryParameters,
+      String? token}) async {
+    try {
+      final response = await dio.put(
+        path,
+        data: data,
+        queryParameters: queryParameters,
+        options: Options(
+          headers: token != null ? {'Authorization': 'Bearer $token'} : {},
+        ),
+      );
+      return response.data;
+    } on DioException catch (e) {
+      _handleError(e);
+    } catch (e) {
+      throw Exception('$e');
+    }
+  }
+
+  // DELETE request
+  Future<dynamic> delete(String path,
+      {Object? data,
+      Map<String, dynamic>? queryParameters,
+      String? token}) async {
+    try {
+      final response = await dio.delete(
+        path,
+        data: data,
+        queryParameters: queryParameters,
+        options: Options(
+          headers: token != null ? {'Authorization': 'Bearer $token'} : {},
+        ),
+      );
+      return response.data;
+    } on DioException catch (e) {
+      _handleError(e);
+    } catch (e) {
+      throw Exception('$e');
+    }
+  }
+
+  // PATCH request
+  Future<dynamic> patch(String path,
+      {Object? data,
+      Map<String, dynamic>? queryParameters,
+      String? token}) async {
+    try {
+      final response = await dio.patch(
+        path,
+        data: data,
+        queryParameters: queryParameters,
+        options: Options(
+          headers: token != null ? {'Authorization': 'Bearer $token'} : {},
+        ),
+      );
+      return response.data;
+    } on DioException catch (e) {
+      _handleError(e);
+    } catch (e) {
+      throw Exception('$e');
+    }
+  }
+
+  void _handleError(DioException e) {
+    if (e.response != null) {
+      final statusCode = e.response?.statusCode;
+      final statusMessage = e.response?.statusMessage;
+      final responseData = e.response?.data;
+
+      if (responseData != null && responseData['errors'] != null) {
+        final errors = List<String>.from(responseData['errors']);
+        throw Exception(errors.join(', '));
+      }
+
+      // Handle specific status codes
+      switch (statusCode) {
+        case 400:
+          throw Exception('Bad Request: $statusMessage');
+        case 401:
+          throw Exception('Unauthorized: Please check your credentials.');
+        case 403:
+          throw Exception(
+              "Forbidden: You don't have permission to access this resource.");
+        case 404:
+          throw Exception('Not Found: $statusMessage');
+        case 500:
+          throw Exception('Internal Server Error: Please try again later.');
+        default:
+          throw Exception('$statusMessage');
+      }
+    } else {
+      // Handle network errors
+      throw 'There is no internet connection.';
+    }
+  }
+}
