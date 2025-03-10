@@ -26,10 +26,13 @@ class _CustomProductUIState extends State<CustomProductUI> {
            Expanded(
              child: Container(
                height:104,
-              child:ClipRRect(
-                 borderRadius: BorderRadius.circular(16),
-                child: widget.product.imageURL!=null? Image.network(widget.product.imageURL!,fit:BoxFit.fill):
-                 Image.asset('assets/images/image 1.png',fit:BoxFit.fill ,),
+              child:GestureDetector(
+                child: ClipRRect(
+                   borderRadius: BorderRadius.circular(16),
+                  child: widget.product.imageURL!=null? Image.network(widget.product.imageURL!,fit:BoxFit.fill):
+                   Image.asset('assets/images/image 1.png',fit:BoxFit.fill ,),
+                ),
+                onTap: (){  Navigator.pushNamed(context, "/productInfo",arguments:widget.product );},
               ) ,
              ),
            ),
@@ -71,7 +74,7 @@ class _CustomProductUIState extends State<CustomProductUI> {
           
         ),
          SizedBox(height: 3,),
-            Divider(color:AppColors.lightGrey ,thickness:2),
+        Divider(color:AppColors.lightGrey ,thickness:2),
       ],
     );
   }

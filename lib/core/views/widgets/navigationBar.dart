@@ -13,6 +13,46 @@ class CustomNavigationBar extends StatelessWidget {
         borderRadius: BorderRadius.circular(30.50),
         color: AppColors.lightBlak
       ) ,
+      child: Row(mainAxisAlignment:MainAxisAlignment.spaceAround ,
+        children: [
+         Container(
+               height:32,
+               width:32 ,
+               child:ClipRRect(
+                child:Image.asset('assets/images/Female Profile.png',fit:BoxFit.fill ,),  
+              ) ,
+             ),
+              Container(
+               height:32,
+               width:32 ,
+               child:ClipRRect(
+                child:Image.asset('assets/images/CookingBook.png',fit:BoxFit.fill ,),  
+              ) ,
+             ),
+        Container(
+               height:32,
+               width:32 ,
+               child:ClipRRect(
+                child:Image.asset('assets/images/Barcode.png',fit:BoxFit.fill ,),  
+              ) ,
+             ),
+              Container(
+               height:32,
+               width:32 ,
+               child:ClipRRect(
+                child:Image.asset('assets/images/Restaurant.png',fit:BoxFit.fill ,),  
+              ) ,
+             ),
+               Container(
+               height:32,
+               width:32 ,
+               child:ClipRRect(
+                child:Image.asset('assets/images/AskQuestion.png',fit:BoxFit.fill ,),  
+              ) ,
+             ),
+     
+     
+      ],),
     );
   }
 }

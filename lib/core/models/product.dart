@@ -2,8 +2,8 @@ class Product {
   int id;
   String productName;
   String barcode;
-  int? positiveVotes;
-  int? negativeVotes;
+  int positiveVotes;
+  int negativeVotes;
   String? imageURL;
   int? alternatives;
   
@@ -12,8 +12,8 @@ class Product {
       { required this.id,
       required this.productName,
      required this.barcode,
-      this.positiveVotes,
-      this.negativeVotes,
+      required this.positiveVotes,
+       required this.negativeVotes,
       this.imageURL,
       this.alternatives,
       });

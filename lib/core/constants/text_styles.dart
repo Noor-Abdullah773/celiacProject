@@ -1,11 +1,9 @@
 
 import 'package:flutter/material.dart';
-
 import 'app_colors.dart';
-
 abstract class AppTextStyle {
-
   static const TextStyle mainWord = TextStyle(
+   
     fontWeight: FontWeight.w700,
     fontSize: 30,
     fontFamily:'Samim',
@@ -37,8 +35,38 @@ abstract class AppTextStyle {
               fontFamily: 'Samim',
               fontWeight: FontWeight.w700,
               );
+  static const TextStyle bold25_black = TextStyle(
+              color: AppColors.black,
+              fontSize: 25,
+              fontFamily: 'Samim',
+              fontWeight: FontWeight.w700,
+              );
   static const TextStyle bold14_white = TextStyle(
               color:Colors.white,
+              fontSize: 14,
+              fontFamily: 'Samim',
+              fontWeight: FontWeight.w700,
+              );
+   static const TextStyle bold12_white = TextStyle(
+              color:Colors.white,
+              fontSize: 12,
+              fontFamily: 'Samim',
+              fontWeight: FontWeight.w700,
+              );
+  static const TextStyle bold14_red = TextStyle(
+              color:AppColors.red,
+              fontSize: 14,
+              fontFamily: 'Samim',
+              fontWeight: FontWeight.w700,
+              );
+  static const TextStyle bold14_darkGreen = TextStyle(
+              color:AppColors.darkGreen,
+              fontSize: 14,
+              fontFamily: 'Samim',
+              fontWeight: FontWeight.w700,
+              );
+  static const TextStyle bold14_darkBlue = TextStyle(
+              color:AppColors.darkBlue,
               fontSize: 14,
               fontFamily: 'Samim',
               fontWeight: FontWeight.w700,
@@ -49,11 +77,32 @@ abstract class AppTextStyle {
               fontFamily: 'Samim',
               fontWeight: FontWeight.w700,
               );
+   static const TextStyle bold10_black = TextStyle(
+              color: Colors.black,
+              fontSize: 10,
+              fontFamily: 'Samim',
+              fontWeight: FontWeight.w700,
+              height: 2,
+              );
+  static const TextStyle bold10_grey = TextStyle(
+              color: AppColors.meduimGrey,
+              fontSize: 10,
+              fontFamily: 'Samim',
+              fontWeight: FontWeight.w700,
+              height: 2,
+              );
  static const TextStyle bold12_mediemGrey = TextStyle(
               color: AppColors.meduimGrey,
               fontSize: 12,
               fontFamily: 'Samim',
               fontWeight: FontWeight.w700,
               );
+ static const TextStyle notFoundGrey= TextStyle(
+              color: AppColors.notFoundGrey,
+              fontSize: 14,
+              fontFamily: 'Samim',
+              fontWeight: FontWeight.w700,
+              );
+
 
 }

@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 
 import '../../constants/app_colors.dart';
 import '../../constants/text_styles.dart';
+import '../../view_model/votingVM.dart';
 import 'cotainerIcon.dart';
 import 'customContainerDialog.dart';
 
@@ -19,6 +20,11 @@ final Product product;
 
 class _ColumnNagitiveState extends State<ColumnNagitive> {
    @override
+   Map<String,int>data={
+     'contributionDecision':0,
+      'reasonId':1,
+      'sourceId':1
+    };
   var future;
   void initState() {
     super.initState();
@@ -38,12 +44,18 @@ class _ColumnNagitiveState extends State<ColumnNagitive> {
             imageW:16 ,
             ),
             Text('السبب :',style:AppTextStyle.bold18_black ,),
-            GestureDetector(child: CustomContainerDialog(color:AppColors.darkBlue,text:snapshot.data![0].text ,),
-            onTap: (){  Navigator.pushNamed(context, "/infoProduct",arguments:widget.product );},
+            GestureDetector(child: CustomContainerDialog(color:AppColors.darkBlue,text:snapshot.data![0].text, height: 49, width:228,textStyle:AppTextStyle.bold14_white),
+            onTap: (){  VotingVM(Dio()).postVote(productId:widget.product.id, voteData:data);
+            Navigator.pushNamed(context, "/allProductionScreen" );
+            },
             ),
             
-             CustomContainerDialog(color:AppColors.darkBlue,text: snapshot.data![1].text ,),
-            CustomContainerDialog(color: AppColors.red, text:'إلغاء')
+             GestureDetector(child: CustomContainerDialog(color:AppColors.darkBlue,text: snapshot.data![1].text ,height: 49, width:228,textStyle:AppTextStyle.bold14_white),
+             onTap: (){  VotingVM(Dio()).postVote(productId:widget.product.id, voteData:data);
+            Navigator.pushNamed(context, "/allProductionScreen" );
+            },
+             ),
+            CustomContainerDialog(color: AppColors.red, text:'إلغاء',height: 49, width:228,textStyle:AppTextStyle.bold14_white)
           ],);
           
         }

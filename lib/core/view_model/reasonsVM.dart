@@ -7,7 +7,7 @@ import '../../helper/apiException.dart';
 class ReasonsVM{
   final Dio dio;
   ReasonsVM(this.dio);
-    String token='eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhYmRhMTFoYSIsImlhdCI6MTczOTM2NDE2MywiZXhwIjoxNzM5OTY4OTYzfQ.MLRRHjoX4nxmu-ADz8uAhlU6z2sixi6f81TTD8XlXcY';
+    String token='eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJBbWFyIiwiaWF0IjoxNzQxNDI3Njc3LCJleHAiOjE3NDIwMzI0Nzd9.0VxFmLKzNWrnYQ5_q3woDgDqyyQLNwuk_fElZEhcb5Q';
   final ApiException apiException = ApiException();
 
   Future <List<ChoiseModel>> get()async{

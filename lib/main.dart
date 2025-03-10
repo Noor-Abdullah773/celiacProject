@@ -1,15 +1,12 @@
-
-
-
-import 'package:celus_fe/core/view_model/reasonsVM.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-import 'core/views/screens/allProductsScreen.dart';
+import 'core/view_model/searchByName.dart';
+import 'core/view_model/votingVM.dart';
 import 'helper/appRoute.dart';
 
 void main() {
-  ReasonsVM(Dio()).get();
+  SearchByNameVM(Dio()).get(name:'SLICED BREAD MULTIGRAIN lusine' );
   runApp(MyApp());
 }
 class MyApp extends StatelessWidget {

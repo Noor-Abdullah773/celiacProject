@@ -4,5 +4,8 @@ class API_URL{
   static const String lookup="$root/lookup";
   static const String reasonsLookup="$lookup/contribution-reasons";
   static const String sourcesLookup="$lookup/contribution-sources";
+  static const String productByBarcode="$allProductsUrl/barcode/";
+  static const String vote="contribute";
+  static const String searchByName="$allProductsUrl?searchTerm=";
 
 }
