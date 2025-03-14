@@ -1,8 +1,16 @@
-class SearchProductState{
+import 'package:celus_fe/core/models/product.dart';
 
+sealed class SearchProductState {}
+class SearchInitialState extends SearchProductState {}
+class SearchLoadingState extends SearchProductState {}
+class SearchLoadedState extends SearchProductState {
+  final List<Product> products;
+  SearchLoadedState({required this.products});
 }
-class SearchInitialState extends SearchProductState{}
-class SearchLoadingState extends SearchProductState{}
-class SearchLoadedState extends SearchProductState{}
-class SearchEmptyState extends SearchProductState{}
-class SearchErrorState extends SearchProductState{}
+class SearchEmptyState extends SearchProductState {
+  
+}
+class SearchErrorState extends SearchProductState {
+  final String errorMessage;
+  SearchErrorState({required this.errorMessage});
+}

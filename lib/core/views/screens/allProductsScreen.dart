@@ -1,37 +1,40 @@
 import 'package:celus_fe/core/views/widgets/bigStack.dart';
-import 'package:dio/dio.dart';
+import 'package:celus_fe/core/views/widgets/productListViewBuilder.dart';
+import 'package:celus_fe/helper/cubits/get_product_cubit/get_product_cubit.dart';
+import 'package:celus_fe/helper/cubits/search_product_cubit/search_product_cubit.dart';
+import 'package:celus_fe/helper/cubits/search_product_cubit/search_product_states.dart';
 import 'package:flutter/material.dart';
-import '../../constants/app_colors.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../constants/text_styles.dart';
-import '../../models/product.dart';
-import '../../view_model/productsVM.dart';
-import '../widgets/customProductUI.dart';
+import '../widgets/ProductListviewBlocBuilder.dart';
+import '../widgets/customSearch.dart';
 import '../widgets/infoBar.dart';
-import '../widgets/searchBox.dart';
-import '../widgets/suffixInSearchBox.dart';
-class AllProductsScreen extends StatefulWidget {
+import '../widgets/searchEmptWidget.dart';
+class AllProductsScreen extends StatelessWidget {
    AllProductsScreen({super.key});
   @override
-  State<AllProductsScreen> createState() => _AllProductsScreenState();
-
+  Widget build(BuildContext context) {
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider<ProductCubit>(
+          create:(context)=>ProductCubit()..gerProducts() // عشان نعمل tigger لل طلب وهي  اثناء تحميل ال صفحة
+          ),
+        BlocProvider<SearchProductCubit>(
+          create:(context) => SearchProductCubit()
+          )
+      ],
+      child: Scaffold(
+        body: AllProductScreenBody()
+      ),
+    );
+  }
 }
 
-class _AllProductsScreenState extends State<AllProductsScreen> {
-
-  List<Product> products = [];
-  bool isLoading = true;
-  String errorMessage = '';
-  @override
-  var future;
-  void initState() {
-    super.initState();
-    future = ProductsVM(Dio()).get();
-  }
-    
+class AllProductScreenBody extends StatelessWidget {
+  const AllProductScreenBody({super.key});
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: BigStuck(widget:Padding(
+    return BigStuck(widget:Padding(
         padding:EdgeInsets.only(right: 27,left: 27,bottom:40),
         child:Column(crossAxisAlignment:CrossAxisAlignment.start ,
           children: [
@@ -41,35 +44,39 @@ class _AllProductsScreenState extends State<AllProductsScreen> {
               style:AppTextStyle.mainWord
               ),
               SizedBox(height: 39,),
-              InfoBar(),
-              SizedBox(height: 32,),
-          Box(hintStyle:AppTextStyle.searchWord, hintText: 'بحث', suffixIcon:SuffixInSearchBox(),color:AppColors.lightGrey,),
+              BlocBuilder<SearchProductCubit,SearchProductState>
+              (builder: (context,state){
+                if(state is SearchInitialState){
+                return Column(
+                  children: [
+                    InfoBar(),
+                    SizedBox(height: 32,),
+                  ],
+                );
+                }else{
+                return Container();
+                }
+              },),
+             
+          CustomSearch(),
           SizedBox(height: 14,),
-          FutureBuilder <List<dynamic>?>(
-            future: future,
-            builder:(context,snabshot){
-             if(snabshot.hasData)
-             {    
-              return Expanded(
-                child: ListView.builder(
-                  padding:EdgeInsets.only(bottom:40 ) ,
-                itemCount:snabshot.data!.length,
-                itemBuilder:(con,i){
-                return CustomProductUI(product:snabshot.data![i],);
-                          }),
-              );
-             }
-            else if(snabshot.hasError)
-             return Text('error');
-            else 
-             return Center(child: CircularProgressIndicator());
-      
+         BlocBuilder<SearchProductCubit,SearchProductState>
+         (builder:(context,state){
+            if(state is SearchInitialState){
+              return ProductListViewBlocBuilder();
+            }else if(state is SearchLoadedState){
+              return ProductListViewBuilder(products:state.products);
+            }else if(state is SearchEmptyState){
+                return Center(child:SearchEmptyWidget() ,);
+            }else if(state is SearchErrorState){
+                return Center(child:Text(state.errorMessage) ,);
+            }else{
+              return   Center(child:CircularProgressIndicator() ,);
             }
-            )
-          
+           
+         })
         ],) ,
       )
-      ),
-    );
+      );
   }
 }

@@ -39,6 +39,7 @@ dependencies:
   flutter_svg: ^2.0.10+1
   dio: ^5.7.0
   flutter_bloc: ^9.1.0
+  dartz: ^0.10.1
 
 dev_dependencies:
   flutter_test:

@@ -1,17 +1,22 @@
 
 import 'package:flutter/material.dart';
-import '../../constants/app_colors.dart';
 class Box extends StatelessWidget {
-  const Box({super.key, required this.hintText, required this.hintStyle, required this.suffixIcon, required this.color});
+  Box({super.key, required this.hintText, required this.hintStyle, required this.suffixIcon, required this.color,this.onChanged});
 final String hintText;
 final TextStyle hintStyle;
 final Widget suffixIcon;
 final Color color;
+final void Function(String)? onChanged;
+final TextEditingController controler = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Center(
-      child: TextFormField(
+      child: TextField(
         //style: AppTextStyle.searchWord,
+        controller: controler,
+        onSubmitted:(value) {      
+        },
+        onChanged: onChanged,
         decoration:InputDecoration(
           contentPadding:EdgeInsets.symmetric(horizontal: 16,vertical:8) ,
           filled:true,

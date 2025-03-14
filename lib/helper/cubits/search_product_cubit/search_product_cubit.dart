@@ -1,21 +1,45 @@
-
-import 'package:celus_fe/core/models/product.dart';
+import 'package:celus_fe/core/view_model/searchByName.dart';
 import 'package:celus_fe/helper/cubits/search_product_cubit/search_product_states.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../core/view_model/searchByName.dart';
-
-class SearchProductCubit extends Cubit <SearchProductState>{
-  SearchProductCubit(super.initialState);
-List<dynamic>? products;
-searchProduct({required String name})async{
- try {
-  products = await SearchByNameVM(Dio()).get(name: name);
- // emit(state)
-} on Exception catch (e) {
-  //emit(state)
+class SearchProductCubit extends Cubit<SearchProductState> {
+  SearchProductCubit() : super(SearchInitialState());
+  searchProduct({required String name}) async {
+    emit(SearchLoadingState());
+    final result = await SearchByNameVM(Dio()).get(name: name);
+    result.fold((failure) {
+      emit(SearchErrorState(errorMessage: failure.errorMessage));
+    }, (products) {
+      if (products.isEmpty) {
+        emit(SearchEmptyState());
+      } else {
+        emit(SearchLoadedState(products: products));
+      }
+    });
+  }
+  clearSearch() {
+    emit(SearchInitialState());
+  }
 }
 
-}
-}
+// class SearchProductCubit extends Cubit<SearchProductState> {
+//   SearchProductCubit() : super(SearchInitialState());
+//   searchProduct({required String name}) async {
+//     try {
+//       emit(SearchLoadingState());
+//       List<Product> products = await SearchByNameVM(Dio()).get(name: name);
+//       if (products.isEmpty) {
+//         emit(SearchEmptyState());
+//       } else {
+        
+//         emit(SearchLoadedState(products: products));
+//       }
+//     } on Exception catch (e) {
+//       emit(SearchErrorState(errorMessage: "there is something wrong"));
+//     }
+//   }
+//   clearSearch() {
+//     emit(SearchInitialState());
+//   }
+// }
