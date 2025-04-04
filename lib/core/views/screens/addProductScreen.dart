@@ -3,16 +3,23 @@ import 'package:celus_fe/core/views/widgets/bigStack.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import '../../constants/text_styles.dart';
+import '../../models/product.dart';
+import '../../models/productUploader.dart';
+import '../widgets/customContainerDialog.dart';
 import '../widgets/searchBox.dart';
 class AddProductScreen extends StatelessWidget {
-  const AddProductScreen({super.key});
-
+   AddProductScreen({super.key});
   @override
+  final TextEditingController nameProductCt = TextEditingController();
+  final TextEditingController brandProductCt = TextEditingController();
+  final TextEditingController countryProductCt = TextEditingController();
   Widget build(BuildContext context) {
+   
     return Scaffold(
       body:BigStuck(widget:Padding
       (padding:EdgeInsets.only(right:30,left: 30,top:25 ,),
-       child:Column( crossAxisAlignment:CrossAxisAlignment.start  ,
+       child:ListView(
+        padding: EdgeInsets.only(bottom:200),
         children: [
            Text('إضافة منتج', style:AppTextStyle.mainWord ,),
             SizedBox(height:30),
@@ -30,8 +37,43 @@ class AddProductScreen extends StatelessWidget {
         Center(child:Text('الخطوة ٢: اسم المنتج',style:AppTextStyle.bold14 ,)),
         SizedBox(height:15 ,),
         Center(child:Text('ما اسم هذا المنتج؟',style:AppTextStyle.bold12_mediemGrey ,)),
-         SizedBox(height:15 ,),
-        Box(color:AppColors.greyBox, hintStyle:AppTextStyle.bold10_black, hintText: 'مثال: خبز توست', suffixIcon:Container(),)
+         SizedBox(height:14 ,),
+        Box(color:AppColors.greyBox, hintStyle:AppTextStyle.bold12_mediemGrey,
+         hintText: 'مثال: خبز توست', controler:nameProductCt,),
+        SizedBox(height:20 ,),
+        Center(child:Text('ما هي العلامة التجارية هذا المنتج؟',style:AppTextStyle.bold12_mediemGrey ,)),
+         SizedBox(height:14 ,),
+        Box(color:AppColors.greyBox, hintStyle:AppTextStyle.bold12_mediemGrey,
+         hintText: 'مثال: المراعي', controler: brandProductCt,),
+         SizedBox(height:20 ,),
+        Center(child:Text('ما هو بلد الصنع؟',style:AppTextStyle.bold12_mediemGrey ,)),
+         SizedBox(height:14 ,),
+        Box(color:AppColors.greyBox, hintStyle:AppTextStyle.bold12_mediemGrey,
+         hintText: 'مثال: تايلند', controler:countryProductCt,),
+          SizedBox(height:20 ,),
+          GestureDetector(
+            child: SizedBox(
+              height:29 ,
+              width:100 ,
+              child: CustomContainerDialog(
+              height:29 ,
+              width:145 ,
+              text:'التالي',color:AppColors.darkBlue ,textStyle:AppTextStyle.bold14_white
+              ),
+            ),
+            onTap:(){
+              ProductUploader productUploader=ProductUploader(
+                productName:nameProductCt.text, 
+                brandName: brandProductCt.text, 
+                ManufacturerCountry:countryProductCt.text, 
+                barcode: '7651098655');
+                print(productUploader.productName);
+                print(productUploader.barcode);
+                print(productUploader.ManufacturerCountry);
+                print(productUploader.brandName);
+               Navigator.pushNamed(context, "/addProductImage",arguments:productUploader );
+            } ,
+          )
        ],)
       ),
      

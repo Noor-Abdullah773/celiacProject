@@ -2,7 +2,6 @@ import 'package:celus_fe/core/constants/text_styles.dart';
 import 'package:celus_fe/core/models/product.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
-
 import '../../constants/app_colors.dart';
 import '../../models/choise.dart';
 import '../../view_model/sourcesVM.dart';
@@ -47,12 +46,12 @@ class _ColumnPosativeState extends State<ColumnPosative> {
             ),
             const Text('مصدر المعلومات:',style:AppTextStyle.bold18_black ,),
              GestureDetector(child: CustomContainerDialog(color:AppColors.darkBlue,text:snapshot.data![0].text ,height: 49, width:228, textStyle:AppTextStyle.bold14_white ,),
-            onTap: (){  VotingVM(Dio()).postVote(productId:widget.product.id, voteData:data);
+            onTap: (){  VotingVM(Dio()).postVote(productId:widget.product.id!, voteData:data);
             Navigator.pushNamed(context, "/allProductionScreen" );
             },
             ),
             GestureDetector(child: CustomContainerDialog(color:AppColors.darkBlue,text: snapshot.data![1].text,height: 49, width:228,textStyle:AppTextStyle.bold14_white),
-             onTap: (){  VotingVM(Dio()).postVote(productId:widget.product.id, voteData:data);
+             onTap: (){  VotingVM(Dio()).postVote(productId:widget.product.id!, voteData:data);
              Navigator.pushNamed(context, "/allProductionScreen" );
              }
             ),

@@ -40,6 +40,9 @@ dependencies:
   dio: ^5.7.0
   flutter_bloc: ^9.1.0
   dartz: ^0.10.1
+  image_picker: ^1.0.7
+  file_picker: ^7.0.2
+  get: ^4.6.5
 
 dev_dependencies:
   flutter_test:

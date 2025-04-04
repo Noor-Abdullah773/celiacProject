@@ -12,18 +12,13 @@ class SuffixInSearchBox extends StatelessWidget {
     return SizedBox(
           width: 60,
            child: Row(children: [
-            GestureDetector(child: Icon(Icons.search,color:AppColors.meduimGrey),
-            onTap:(){  Navigator.pushNamed(context, "/notFoundProduct", );} ,
-            ),
+            Icon(Icons.search,color:AppColors.meduimGrey),
              VerticalLine(height: 16,),
                SizedBox(width: 3,),
              Padding(
               padding:EdgeInsets.only(top:5 ) ,
-            child:GestureDetector(
-              child: SvgPicture.asset('assets/images/noun-barcode-scanner-74445.svg' ,height: 30,width: 25,
-              color:AppColors.meduimGrey ,),
-              onTap:(){ Navigator.pushNamed(context, "/scanBarcodeOne", );} ,
-            )
+            child:SvgPicture.asset('assets/images/noun-barcode-scanner-74445.svg' ,height: 30,width: 25,
+            color:AppColors.meduimGrey ,)
             ),
            ],),
          );

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 
-import '../../constants/text_styles.dart';
 
 class CustomContainerDialog extends StatelessWidget {
   const CustomContainerDialog({super.key,required this.color,required this.text,required this.height,required this.width,
@@ -20,7 +19,10 @@ final TextStyle textStyle;
                   color: color,
                   borderRadius:BorderRadius.circular(12) 
                 ) ,
-                child: Center(child: Text(text,style:textStyle,)),
+                child: Padding(
+                  padding:  const EdgeInsets.only(right:15 ,left:15),
+                  child: Center(child: Text(text,style:textStyle,textAlign: TextAlign.center,)),
+                ),
               );
   }
 }

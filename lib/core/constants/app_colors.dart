@@ -14,5 +14,6 @@ abstract class AppColors{
   static const Color lightBlak=Color(0xFF1E1E1E);
   static const Color notFoundGrey=Color(0xFF5C5C5C);
   static const Color greyBox=Color(0xFFF5F5F5);
+  static const Color circularShape=Color(0xFFF7F7F7);
 
 }

@@ -32,6 +32,7 @@ class SearchEmptyWidget extends StatelessWidget {
             child:CustomContainerDialog(height:29 ,width:150,text:'اسأل عن هذا المنتج' ,
             color: AppColors.notFoundGrey,textStyle:AppTextStyle.bold12_white) ,),
           onTap:(){Navigator.pushNamed(context, "/addProductScreen", );} ,
+         
             )
     ],);
   }

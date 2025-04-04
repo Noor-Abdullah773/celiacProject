@@ -10,7 +10,7 @@ class ProductsVM {
   final Dio dio;
   final ApiException apiException = ApiException();
   ProductsVM(this.dio);
-  String token='eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJBbWFyIiwiaWF0IjoxNzQxNDI3Njc3LCJleHAiOjE3NDIwMzI0Nzd9.0VxFmLKzNWrnYQ5_q3woDgDqyyQLNwuk_fElZEhcb5Q';
+  String token='eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJvbWVyIiwiaWF0IjoxNzQzNTA0MjEyLCJleHAiOjE3NDQxMDkwMTJ9.I-2hnR9HW-nep-mklSgcFFMWu0ITCq7h7pXc890-Rs0';
   
   // GET request
   Future<Either<Failure,List<Product>>> get() async {
@@ -23,6 +23,7 @@ class ProductsVM {
      List<Product> products =productLst.map((item) => Product.fromJson(item)).toList();
       return Right(products);
     } catch(e){
+      print(e);
       return Left(ServerFailure.handleException(e));
     }
    

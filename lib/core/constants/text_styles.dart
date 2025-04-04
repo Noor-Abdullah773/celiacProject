@@ -84,6 +84,13 @@ abstract class AppTextStyle {
               fontWeight: FontWeight.w700,
               height: 2,
               );
+   static const TextStyle bold16_black = TextStyle(
+              color: Colors.black,
+              fontSize: 16,
+              fontFamily: 'Samim',
+              fontWeight: FontWeight.w700,
+              height: 2,
+              );
   static const TextStyle bold10_grey = TextStyle(
               color: AppColors.meduimGrey,
               fontSize: 10,
