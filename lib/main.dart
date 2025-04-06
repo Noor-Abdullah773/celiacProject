@@ -6,7 +6,6 @@ import 'core/view_model/votingVM.dart';
 import 'helper/appRoute.dart';
 
 void main() {
-  SearchByNameVM(Dio()).get(name:'SLICED BREAD MULTIGRAIN lusine' );
   runApp(MyApp());
 }
 class MyApp extends StatelessWidget {

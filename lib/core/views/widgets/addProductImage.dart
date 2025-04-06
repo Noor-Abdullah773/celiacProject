@@ -1,27 +1,22 @@
-import 'dart:io';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:image_picker/image_picker.dart';
+
 import '../../constants/app_colors.dart';
 import '../../constants/text_styles.dart';
 import '../../models/productUploader.dart';
 import '../../view_model/addProductVM.dart';
-import '../widgets/bigStack.dart';
-import '../widgets/customContainerDialog.dart';
-import '../widgets/dialogImage.dart';
+import 'customContainerDialog.dart';
+import 'dialogImage.dart';
 
 class AddProductImage extends StatelessWidget {
-  const AddProductImage({super.key, required this.productUploader});
+  const AddProductImage({super.key,required this.productUploader});
 final ProductUploader productUploader;
-
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body:BigStuck(widget:Padding(
-        padding:EdgeInsets.only(right:30,left: 30,top:25 ,),
-        child: ListView(
+    return ListView(
           padding: EdgeInsets.only(bottom: 200,left:20,right:20),
           children: [
            Text('إضافة منتج', style:AppTextStyle.mainWord ,),
@@ -101,8 +96,6 @@ final ProductUploader productUploader;
             },
           ),
         )
-        ],),
-         ),) ,
-    );
+        ],);
   }
 }

@@ -65,11 +65,11 @@ class AddProductScreen extends StatelessWidget {
               ProductUploader productUploader=ProductUploader(
                 productName:nameProductCt.text, 
                 brandName: brandProductCt.text, 
-                ManufacturerCountry:countryProductCt.text, 
-                barcode: '7651098655');
+                manufacturerCountry:countryProductCt.text, 
+                barcode: '7651098655113');
                 print(productUploader.productName);
                 print(productUploader.barcode);
-                print(productUploader.ManufacturerCountry);
+                print(productUploader.manufacturerCountry);
                 print(productUploader.brandName);
                Navigator.pushNamed(context, "/addProductImage",arguments:productUploader );
             } ,
