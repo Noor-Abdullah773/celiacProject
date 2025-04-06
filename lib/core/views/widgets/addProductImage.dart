@@ -1,9 +1,11 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:image_picker/image_picker.dart';
 
+import '../../../helper/cubits/add_product_cubit/add_product_cubit.dart';
 import '../../constants/app_colors.dart';
 import '../../constants/text_styles.dart';
 import '../../models/productUploader.dart';
@@ -90,8 +92,9 @@ final ProductUploader productUploader;
             
               Map<String,dynamic> productUploaderData=await productUploader.toJson();
              // print(productUploaderData);
-             await AddProductVM(Dio()).postProduct(productUploaderData:productUploaderData);
-               print('yes');
+            // await AddProductVM(Dio()).postProduct(productUploaderData:productUploaderData);
+            BlocProvider.of<AddProductCubit>(context).addProduct(productUploaderData: productUploaderData);
+             
              
             },
           ),

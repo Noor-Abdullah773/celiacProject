@@ -19,8 +19,10 @@ class AddProductVM{
         headers:{'Authorization': 'Bearer $token','Content-Type': 'multipart/form-data'}, 
       ),);
   print(response);
+   print("ok");
  return Right(null);
 }  catch (e) {
+  print(e);
   return Left(ServerFailure.handleException(e));
 }
 
