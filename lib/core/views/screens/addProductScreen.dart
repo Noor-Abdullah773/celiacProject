@@ -8,7 +8,8 @@ import '../../models/productUploader.dart';
 import '../widgets/customContainerDialog.dart';
 import '../widgets/searchBox.dart';
 class AddProductScreen extends StatelessWidget {
-   AddProductScreen({super.key});
+   AddProductScreen({super.key,required this.barcode});
+  final String barcode;
   @override
   final TextEditingController nameProductCt = TextEditingController();
   final TextEditingController brandProductCt = TextEditingController();
@@ -66,7 +67,7 @@ class AddProductScreen extends StatelessWidget {
                 productName:nameProductCt.text, 
                 brandName: brandProductCt.text, 
                 manufacturerCountry:countryProductCt.text, 
-                barcode: '7651098655113');
+                barcode: barcode);
                 print(productUploader.productName);
                 print(productUploader.barcode);
                 print(productUploader.manufacturerCountry);

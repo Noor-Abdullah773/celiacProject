@@ -4,7 +4,6 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:image_picker/image_picker.dart';
-
 import '../../../helper/cubits/add_product_cubit/add_product_cubit.dart';
 import '../../constants/app_colors.dart';
 import '../../constants/text_styles.dart';

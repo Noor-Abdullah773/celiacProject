@@ -14,7 +14,7 @@ class ProductCubit extends Cubit<ProductState>{
   }, 
   (products) =>{
     if(products.isEmpty){
-      emit(ProductState())
+      emit(ProductEmptyState())
     }else{
       emit(ProductLoadedState(products:products))
     }
