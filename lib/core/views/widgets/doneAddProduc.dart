@@ -1,4 +1,3 @@
-import 'package:celus_fe/core/views/widgets/bigStack.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import '../../constants/app_colors.dart';
@@ -50,11 +49,16 @@ class DoneAddProduct extends StatelessWidget {
            SizedBox(height:8),
            Divider(color:AppColors.lightGrey ,thickness:2),
            SizedBox(height:8),
-            Center(child:CustomContainerDialog(
-          height:29 ,
-          width:145 ,
-          text:'إنهاء',color:AppColors.darkBlue ,textStyle:AppTextStyle.bold14_white
-          ) ,
+            Center(child:GestureDetector(
+              child: CustomContainerDialog(
+                      height:29 ,
+                      width:145 ,
+                      text:'إنهاء',color:AppColors.darkBlue ,textStyle:AppTextStyle.bold14_white
+                      ),
+                    onTap:(){
+                       Navigator.pushNamed(context, "/allProductionScreen" );
+                    } ,
+            ) ,
           )
         ],)
        ;

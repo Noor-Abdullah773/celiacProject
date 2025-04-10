@@ -2,8 +2,6 @@ import 'package:barcode_scan2/platform_wrapper.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-
-import '../../../helper/cubits/get_product_cubit/get_product_state.dart';
 import '../../constants/app_colors.dart';
 import '../../constants/text_styles.dart';
 import '../../models/product.dart';
@@ -60,9 +58,11 @@ class ScanBarcodeOne extends StatelessWidget {
         color:AppColors.darkBlue ,
         textStyle:AppTextStyle.bold12_white),
         onTap:()async{final barcode= await scanBarcode ();
-       final productState =await ProductByBarcodeVM(Dio()).get(barcode: barcode);
+       dynamic productState =await ProductByBarcodeVM(Dio()).get(barcode: barcode);
+       print(productState);
        Product product;
-       productState !=null ?{ product = Product(productName:productState.productName, barcode: barcode, positiveVotes:0, negativeVotes: 0),
+       productState !=null ?{ 
+         product = Product(productName:productState.productName, barcode: barcode, positiveVotes:0, negativeVotes: 0),
          Navigator.of(context).pushNamed('/productInfo',arguments: product) }
        : Navigator.of(context).pushNamed('/addProductScreen',arguments:barcode );
 

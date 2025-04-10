@@ -7,11 +7,11 @@ import '../../helper/error/failures.dart';
 class AddProductVM{
    final Dio dio;
    AddProductVM(this.dio);
-    String token='eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJvbWVyIiwiaWF0IjoxNzQzNTA0MjEyLCJleHAiOjE3NDQxMDkwMTJ9.I-2hnR9HW-nep-mklSgcFFMWu0ITCq7h7pXc890-Rs0';
+    String token='eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJvbWVyIiwiaWF0IjoxNzQ0MTgxNTc3LCJleHAiOjE3NDQ3ODYzNzd9.EBHpLly23qKLWVLzuRbCxd21lh2MuqrAzhhkCmLmExE';
   final ApiException apiException = ApiException();
 
   Future<Either<Failure, void>> postProduct({required Map<String,dynamic>productUploaderData})async{
-    print(productUploaderData);
+    print('addVm ${productUploaderData}');
     FormData formData = await FormData.fromMap(productUploaderData);
     try {
   final response = await dio.post(API_URL.allProductsUrl, 

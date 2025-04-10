@@ -1,39 +1,38 @@
 import 'package:celus_fe/core/constants/api_urls.dart';
 import 'package:celus_fe/core/models/productState.dart';
+import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
-
-import '../../helper/apiException.dart';
+import '../../helper/error/failures.dart';
 import '../constants/app_colors.dart';
 import '../constants/text_styles.dart';
 
 class ProductByBarcodeVM{
   final Dio dio;
-  final ApiException apiException = ApiException();
+ 
   ProductByBarcodeVM(this.dio);
-  String token='eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJvbWVyIiwiaWF0IjoxNzQzNTA0MjEyLCJleHAiOjE3NDQxMDkwMTJ9.I-2hnR9HW-nep-mklSgcFFMWu0ITCq7h7pXc890-Rs0';
+  String token='eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJvbWVyIiwiaWF0IjoxNzQ0MTgxNTc3LCJleHAiOjE3NDQ3ODYzNzd9.EBHpLly23qKLWVLzuRbCxd21lh2MuqrAzhhkCmLmExE';
 
   Future<ProductState?> get({required barcode})async{
-    try {
+  try {
   final response =await dio.get("${API_URL.productByBarcode}$barcode",options: Options(
         headers:{'Authorization': 'Bearer $token'} ,
       ),);
-      var data = response.data;
- ProductState productState = ProductState(contributionCount:data['contributionCount'],
+     Map<String,dynamic> data = response.data;
+   ProductState productState = ProductState(contributionCount:data['contributionCount'],
   productSafetyStatus:data['productSafetyStatus'] , imageURL:data['imageURL'] ,
    productName:data['productName'] );
    print(data);
+   print('ok');
    return productState;
-} on DioException catch(e){
-      apiException.handleError(e);
-    print( apiException.handleError(e));
-    } on
-    Exception catch (e){
-      print(e);
-     // return [];
+} on Exception catch (e) {
+ print(ServerFailure.handleException(e).errorMessage);
+ return null;
+ 
+}
+}
+
   
-    }
-  }
   Map<String,dynamic> checkState({required productSafetyStatus})
   {
      Map<String,dynamic> mapInfo={};
@@ -94,5 +93,4 @@ class ProductByBarcodeVM{
     }
 
   }
-  
 }
