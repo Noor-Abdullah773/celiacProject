@@ -59,12 +59,12 @@ class ScanBarcodeOne extends StatelessWidget {
         textStyle:AppTextStyle.bold12_white),
         onTap:()async{
         final barcode= await scanBarcode ();
-      dynamic productState =await ProductByBarcodeVM(Dio()).get(barcode: barcode);
+      final productState =await ProductByBarcodeVM(Dio()).get(barcode: barcode);
        print(productState);
        productState.fold((l){Navigator.of(context).pushNamed('/addProductScreen',arguments:barcode );}  
        , (r) {
-        Product product;
-        product = Product(productName:productState.productName, barcode: barcode, positiveVotes:0, negativeVotes: 0);
+        
+       Product product = Product(productName:r.productName, barcode: barcode, positiveVotes:0, negativeVotes: 0);
          Navigator.of(context).pushNamed('/productInfo',arguments: product);
        } ); 
       //  Product product;

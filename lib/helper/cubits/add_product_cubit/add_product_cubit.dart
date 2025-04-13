@@ -7,7 +7,7 @@ class AddProductCubit extends Cubit <AddProductState>{
 
  addProduct( {required Map<String,dynamic> productUploaderData})async{
   emit(LoadingAddProductState());
- final result =await AddProductVM().postProduct(productUploaderData:productUploaderData);
+ final result =await AddProductVM(Dio()).postProduct(productUploaderData:productUploaderData);
   result.fold((left) {
       emit(AddProductErrorState(errorMessage: left.errorMessage));
       print('left');

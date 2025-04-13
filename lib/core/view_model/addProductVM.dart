@@ -4,17 +4,13 @@ import 'package:dio/dio.dart';
 import '../../helper/apiException.dart';
 import '../../helper/error/failures.dart';
 
-
 class AddProductVM{
-   final dio = Dio(BaseOptions(
-    connectTimeout:Duration(seconds:  10000), // 10 ثوانٍ
-    receiveTimeout: Duration(seconds:  10000), // 10 ثوانٍ
-  ));
-   AddProductVM();
+   final Dio dio ;
+   AddProductVM(this.dio);
     String token='eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJvbWVyIiwiaWF0IjoxNzQ0MTgxNTc3LCJleHAiOjE3NDQ3ODYzNzd9.EBHpLly23qKLWVLzuRbCxd21lh2MuqrAzhhkCmLmExE';
   final ApiException apiException = ApiException();
 
-  Future<Either<Failure, void>> postProduct({required Map<String,dynamic>productUploaderData})async{
+  Future<Either<Failure,void>> postProduct({required Map<String,dynamic>productUploaderData})async{
     print('addVm ${productUploaderData}');
     FormData formData = await FormData.fromMap(productUploaderData);
     print(formData);
@@ -27,7 +23,7 @@ class AddProductVM{
    print("ok");
  return Right(null);
 }  catch (e) {
-  print(e);
+  print('${e} oooooooo');
   return Left(ServerFailure.handleException(e));
 }
 

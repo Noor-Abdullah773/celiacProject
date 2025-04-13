@@ -23,8 +23,9 @@ class ProductByBarcodeVM {
       );
       Map<String, dynamic> data = response.data;
       ProductState productState = ProductState(contributionCount: data['contributionCount'], 
-      productSafetyStatus:data[' productSafetyStatus'], 
-      imageURL: data['imageURL'], productName: 'productName');
+      productSafetyStatus:data['productSafetyStatus'], 
+      imageURL: data['imageURL'], productName: data['productName']);
+      print(productState.productName);
       return Right(productState);
     } catch (e) {
       return Left(ServerFailure.handleException(e));
