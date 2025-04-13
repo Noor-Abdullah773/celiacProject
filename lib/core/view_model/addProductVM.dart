@@ -4,19 +4,24 @@ import 'package:dio/dio.dart';
 import '../../helper/apiException.dart';
 import '../../helper/error/failures.dart';
 
+
 class AddProductVM{
-   final Dio dio;
-   AddProductVM(this.dio);
+   final dio = Dio(BaseOptions(
+    connectTimeout:Duration(seconds:  10000), // 10 ثوانٍ
+    receiveTimeout: Duration(seconds:  10000), // 10 ثوانٍ
+  ));
+   AddProductVM();
     String token='eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJvbWVyIiwiaWF0IjoxNzQ0MTgxNTc3LCJleHAiOjE3NDQ3ODYzNzd9.EBHpLly23qKLWVLzuRbCxd21lh2MuqrAzhhkCmLmExE';
   final ApiException apiException = ApiException();
 
   Future<Either<Failure, void>> postProduct({required Map<String,dynamic>productUploaderData})async{
     print('addVm ${productUploaderData}');
     FormData formData = await FormData.fromMap(productUploaderData);
+    print(formData);
     try {
   final response = await dio.post(API_URL.allProductsUrl, 
   data:formData, options: Options(
-        headers:{'Authorization': 'Bearer $token','Content-Type': 'multipart/form-data'}, 
+        headers:{'Authorization': 'Bearer $token','Content-Type':'multipart/form-data'}, 
       ),);
   print(response);
    print("ok");

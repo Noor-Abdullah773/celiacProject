@@ -1,7 +1,6 @@
 import 'package:celus_fe/helper/error/failures.dart';
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
-
 import '../../helper/apiException.dart';
 import '../constants/api_urls.dart';
 import '../models/product.dart';
@@ -15,7 +14,7 @@ class ProductsVM {
   // GET request
   Future<Either<Failure,List<Product>>> get() async {
     try {
-      final response = await dio.get(API_URL.allProductsUrl,options: Options(
+      final response = await dio.get('${API_URL.allProductsUrl}',options: Options(
           headers:{'Authorization': 'Bearer $token'} ,
         ),
       );

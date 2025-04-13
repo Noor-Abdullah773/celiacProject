@@ -8,7 +8,6 @@ import '../../../helper/cubits/add_product_cubit/add_product_cubit.dart';
 import '../../constants/app_colors.dart';
 import '../../constants/text_styles.dart';
 import '../../models/productUploader.dart';
-import '../../view_model/addProductVM.dart';
 import 'customContainerDialog.dart';
 import 'dialogImage.dart';
 
