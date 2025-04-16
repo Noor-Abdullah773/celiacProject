@@ -1,14 +1,22 @@
+import 'package:barcode_scan2/platform_wrapper.dart';
+import 'package:celus_fe/core/models/productState.dart';
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
 import '../../constants/app_colors.dart';
 import '../../constants/text_styles.dart';
+import '../../models/product.dart';
+import '../../view_model/ProductByBarcodeVM.dart';
 import '../widgets/bigStack.dart';
 import '../widgets/customContainerDialog.dart';
 
 class ScanBarcodeOne extends StatelessWidget {
   const ScanBarcodeOne({super.key});
-
+Future<String> scanBarcode() async {
+    var scanResult = await BarcodeScanner.scan();
+      return scanResult.rawContent;
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -39,7 +47,27 @@ class ScanBarcodeOne extends StatelessWidget {
        ),
      )),
      SizedBox(height:24 ,),
-     Center(child:CustomContainerDialog(height:29 ,width:139 ,text: 'ابدأ المسح',color:AppColors.darkBlue ,textStyle:AppTextStyle.bold12_white) ,)
+     Center(child:
+     GestureDetector(child:
+      CustomContainerDialog(height:29 ,width:139 
+      ,text: 'ابدأ المسح',color:AppColors.darkBlue ,
+      textStyle:AppTextStyle.bold12_white),
+      onTap:(){
+        scanBarcode().then((value)async {
+          print(value);
+       dynamic resultSearch= await ProductByBarcodeVM(Dio()).get(barcode: value);
+        if (resultSearch!.productName != null)
+        {
+           print('found');
+          Product product = Product(productName:resultSearch.productName, barcode:value, positiveVotes:0, negativeVotes: 0);
+         Navigator.of(context).pushNamed('/productInfo',arguments: product);
+           
+        }
+        else{
+         Navigator.pushNamed(context,'/addProductScreen',arguments:value );
+        }
+        });
+      } ,) ,)
 
       ],),
       ),

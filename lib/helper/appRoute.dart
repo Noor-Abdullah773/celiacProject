@@ -19,7 +19,8 @@ class RouteManager {
       case '/scanBarcodeOne':
         return MaterialPageRoute(builder: (ctx) => ScanBarcodeOne());
       case '/addProductScreen':
-        return MaterialPageRoute(builder: (ctx) => AddProductScreen());
+      String barcode = settings.arguments as String;
+        return MaterialPageRoute(builder: (ctx) => AddProductScreen(barcode:barcode),settings:settings);
       case '/addProductImage':
        ProductUploader productUploader = settings.arguments as ProductUploader;
         return MaterialPageRoute(builder: (ctx) => AddProductImageBuilder(productUploader:productUploader,),settings:settings);
