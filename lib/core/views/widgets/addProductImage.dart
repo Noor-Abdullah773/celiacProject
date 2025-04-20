@@ -89,7 +89,6 @@ final ProductUploader productUploader;
               textStyle: AppTextStyle.bold14_white, 
               width:100,),
             onTap: ()async{
-            
               Map<String,dynamic> productUploaderData=await productUploader.toJson();
              // print(productUploaderData);
             // await AddProductVM(Dio()).postProduct(productUploaderData:productUploaderData);

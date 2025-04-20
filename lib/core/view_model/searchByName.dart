@@ -5,7 +5,7 @@ import '../../helper/apiException.dart';
 import '../constants/api_urls.dart';
 import '../models/product.dart';
 
-class SearchByNameVM {
+class SearchByNameVM{
   final Dio dio;
   final ApiException apiException = ApiException();
   SearchByNameVM(this.dio);

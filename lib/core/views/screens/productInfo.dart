@@ -32,7 +32,8 @@ class _ProductInfoState extends State<ProductInfo> {
           GestureDetector(
             child: Row(
               children: [
-                Text('<  ', style:AppTextStyle.bold12_mediemGrey ,),
+                Icon(Icons.arrow_back_ios,color:AppColors.meduimGrey ,size: 20,),
+               // Text('<  ', style:AppTextStyle.bold12_mediemGrey ,),
                 Text('رجوع',
                 style:AppTextStyle.bold12_mediemGrey ,
                 ),
@@ -56,7 +57,8 @@ class _ProductInfoState extends State<ProductInfo> {
                height:102,
               child:ClipRRect(
                  borderRadius: BorderRadius.circular(16),
-                child:widget.product.imageURL!=null? Image.network(widget.product.imageURL!.path,fit:BoxFit.fill):
+                child:
+                widget.product.imageURL!=null? Image.network(widget.product.imageURL!.path,fit:BoxFit.fill):
                  Image.asset('assets/images/image 1.png',fit:BoxFit.fill ,),
               ) ,
              ),),

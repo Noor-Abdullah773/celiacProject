@@ -25,7 +25,7 @@ final ProductUploader productUploader;
               if (state is InitailAddProductState) {
                 return AddProductImage(productUploader: productUploader);
               } else if (state is DoneAddProductState) {
-                return DoneAddProduct();
+                return DoneAddProduct(name:state.name ,);
               } else if (state is AddProductErrorState) {
                 return Center(child: Text(state.errorMessage));
               } else {

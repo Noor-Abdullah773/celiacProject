@@ -22,7 +22,7 @@ class ProductByBarcodeVM{
  ProductState productState = ProductState(contributionCount:data['contributionCount'],
   productSafetyStatus:data['productSafetyStatus'] , imageURL:data['imageURL'] ,
    productName:data['productName'] );
-   print(data);
+   print(productState.imageURL);
    return productState;
 } catch (e){
  

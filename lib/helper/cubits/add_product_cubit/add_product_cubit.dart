@@ -11,7 +11,7 @@ class AddProductCubit extends Cubit <AddProductState>{
   result.fold((left) {
       emit(AddProductErrorState(errorMessage: left.errorMessage));
     }, (right) {
-       emit(DoneAddProductState());
+       emit(DoneAddProductState(name:right));
     });
  
  }

@@ -45,13 +45,13 @@ class _ColumnNagitiveState extends State<ColumnNagitive> {
             ),
             Text('السبب :',style:AppTextStyle.bold18_black ,),
             GestureDetector(child: CustomContainerDialog(color:AppColors.darkBlue,text:snapshot.data![0].text, height: 49, width:228,textStyle:AppTextStyle.bold14_white),
-            onTap: (){  VotingVM(Dio()).postVote(productId:widget.product.id!, voteData:data);
+            onTap: (){  VotingVM(Dio()).postVote(productBarcode:int.parse(widget.product.barcode!), voteData:data);
             Navigator.pushNamed(context, "/allProductionScreen" );
             },
             ),
             
              GestureDetector(child: CustomContainerDialog(color:AppColors.darkBlue,text: snapshot.data![1].text ,height: 49, width:228,textStyle:AppTextStyle.bold14_white),
-             onTap: (){  VotingVM(Dio()).postVote(productId:widget.product.id!, voteData:data);
+             onTap: (){  VotingVM(Dio()).postVote(productBarcode:int.parse(widget.product.barcode!), voteData:data);
             Navigator.pushNamed(context, "/allProductionScreen" );
             },
              ),

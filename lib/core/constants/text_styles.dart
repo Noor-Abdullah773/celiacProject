@@ -110,6 +110,18 @@ abstract class AppTextStyle {
               fontFamily: 'Samim',
               fontWeight: FontWeight.w700,
               );
+ static const TextStyle darkGreen10 =TextStyle(
+              color: AppColors.darkGreen,
+              fontSize: 10,
+              fontFamily: 'Samim',
+              fontWeight: FontWeight.w700,
+              );
+ static const TextStyle darkPinck10 =TextStyle(
+              color: AppColors.darckPinck,
+              fontSize: 10,
+              fontFamily: 'Samim',
+              fontWeight: FontWeight.w700,
+              );
 
 
 }

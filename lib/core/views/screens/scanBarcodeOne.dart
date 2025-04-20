@@ -1,9 +1,8 @@
 import 'package:barcode_scan2/platform_wrapper.dart';
-import 'package:celus_fe/core/models/productState.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-
+import 'package:image_picker/image_picker.dart';
 import '../../constants/app_colors.dart';
 import '../../constants/text_styles.dart';
 import '../../models/product.dart';
@@ -59,7 +58,7 @@ Future<String> scanBarcode() async {
         if (resultSearch!.productName != null)
         {
            print('found');
-          Product product = Product(productName:resultSearch.productName, barcode:value, positiveVotes:0, negativeVotes: 0);
+          Product product = Product(productName:resultSearch.productName, barcode:value, positiveVotes:0, negativeVotes: 0,imageURL:XFile(resultSearch.imageURL));
          Navigator.of(context).pushNamed('/productInfo',arguments: product);
            
         }
