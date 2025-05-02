@@ -58,7 +58,7 @@ class _ProductInfoState extends State<ProductInfo> {
               child:ClipRRect(
                  borderRadius: BorderRadius.circular(16),
                 child:
-                widget.product.imageURL!=null? Image.network(widget.product.imageURL!.path,fit:BoxFit.fill):
+                widget.product.imageURL!=null? Image.network(widget.product.imageURL!,fit:BoxFit.fill):
                  Image.asset('assets/images/image 1.png',fit:BoxFit.fill ,),
               ) ,
              ),),

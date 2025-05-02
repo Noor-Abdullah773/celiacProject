@@ -11,7 +11,7 @@ class ProductByBarcodeVM{
   final Dio dio;
   final ApiException apiException = ApiException();
   ProductByBarcodeVM(this.dio);
-  String token='eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJvbWVyIiwiaWF0IjoxNzQ0NzA1MTkyLCJleHAiOjE3NDUzMDk5OTJ9.LA4OKzJ7h8Zd0phvRLYus8i_kMT4MRzXB1SNtJZ6EYI';
+  String token='eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJvbWVyIiwiaWF0IjoxNzQ1NTYwNzUzLCJleHAiOjE3NDU1NjIxOTN9.x5fYP6oZ6zLR1hMJ2v1l5yjrGhVV2huzSUBXG6c0E9c';
 
   Future<ProductState> get({required barcode})async{
     try {

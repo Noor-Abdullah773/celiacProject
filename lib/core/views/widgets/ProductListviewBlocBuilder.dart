@@ -9,6 +9,7 @@ class ProductListViewBlocBuilder extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<ProductCubit,ProductState>(
+      buildWhen: (previous, current) =>  current is! GetProductFromPaginationLoading,
       builder:(context,state){
        if(state is ProductLoadedState) {
          return ProductListViewBuilder(products:state.products);

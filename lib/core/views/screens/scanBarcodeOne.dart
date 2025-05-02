@@ -58,7 +58,7 @@ Future<String> scanBarcode() async {
         if (resultSearch!.productName != null)
         {
            print('found');
-          Product product = Product(productName:resultSearch.productName, barcode:value, positiveVotes:0, negativeVotes: 0,imageURL:XFile(resultSearch.imageURL));
+          Product product = Product(productName:resultSearch.productName, barcode:value, positiveVotes:0, negativeVotes: 0,imageURL:resultSearch.imageURL);
          Navigator.of(context).pushNamed('/productInfo',arguments: product);
            
         }
