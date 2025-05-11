@@ -19,10 +19,15 @@ final Product product;
 
 class _ColumnPosativeState extends State<ColumnPosative> {
    @override
-    Map<String,int>data={
+    Map<String,int>vote={
      'contributionDecision':1,
       'reasonId':1,
       'sourceId':1
+    };
+     Map<String,int>deleteVote={
+     'contributionDecision':2,
+      'reasonId':2,
+      'sourceId':2
     };
   late Future<List<ChoiseModel>> future;
   void initState() {
@@ -46,14 +51,24 @@ class _ColumnPosativeState extends State<ColumnPosative> {
             ),
             const Text('مصدر المعلومات:',style:AppTextStyle.bold18_black ,),
              GestureDetector(child: CustomContainerDialog(color:AppColors.darkBlue,text:snapshot.data![0].text ,height: 49, width:228, textStyle:AppTextStyle.bold14_white ,),
-            onTap: (){  VotingVM(Dio()).postVote(productBarcode:int.parse(widget.product.barcode!) , voteData:data);
+            onTap: (){ 
+               if (widget.product.voteStatus==null || widget.product.voteStatus=="UNSAFE") {
+                VotingVM(Dio()).postVote(productBarcode:int.parse(widget.product.barcode!) , voteData:vote);
+              }else if(widget.product.voteStatus=="SAFE"){
+                VotingVM(Dio()).postVote(productBarcode:int.parse(widget.product.barcode!) , voteData:deleteVote);
+              }
             Navigator.pushNamed(context, "/allProductionScreen" );
             },
             ),
             GestureDetector(child: CustomContainerDialog(color:AppColors.darkBlue,text: snapshot.data![1].text,height: 49, width:228,textStyle:AppTextStyle.bold14_white),
-             onTap: (){  VotingVM(Dio()).postVote(productBarcode:int.parse(widget.product.barcode!), voteData:data);
-             Navigator.pushNamed(context, "/allProductionScreen" );
-             }
+            onTap: (){  print('befor${widget.product.voteStatus}');
+               if (widget.product.voteStatus==null || widget.product.voteStatus=="UNSAFE") {
+                VotingVM(Dio()).postVote(productBarcode:int.parse(widget.product.barcode!) , voteData:vote);
+              }else if(widget.product.voteStatus=="SAFE"){
+                VotingVM(Dio()).postVote(productBarcode:int.parse(widget.product.barcode!) , voteData:deleteVote);
+              }print('after${widget.product.voteStatus}');
+            Navigator.pushNamed(context, "/allProductionScreen" );
+            },
             ),
             const CustomContainerDialog(color: AppColors.red, text:'إلغاء',height: 49, width:228,textStyle:AppTextStyle.bold14_white)
           ],);

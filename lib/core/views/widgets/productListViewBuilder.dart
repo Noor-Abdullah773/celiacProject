@@ -14,7 +14,6 @@ final List<Product> products;
                 child: NotificationListener<ScrollNotification>(
                    onNotification:(notification){
               if(notification.metrics.pixels== notification.metrics.maxScrollExtent && notification is ScrollUpdateNotification){
-                print('jjj');
           ProductCubit cubit = BlocProvider.of(context);
           cubit.gerProducts(fromLoading: true);
               }

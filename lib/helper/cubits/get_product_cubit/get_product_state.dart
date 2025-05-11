@@ -13,6 +13,9 @@ import 'package:celus_fe/core/models/product.dart';
 }
  class ProductErrorState extends ProductState{
   final String errorMessage;
-
   ProductErrorState({required this.errorMessage});
+}
+class ProductErrorPaginationState  extends ProductState{
+  final String errorMessage;
+  ProductErrorPaginationState({required this.errorMessage});
 }

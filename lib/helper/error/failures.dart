@@ -1,3 +1,4 @@
+import 'package:celus_fe/helper/error/exceptions.dart';
 import 'package:dio/dio.dart';
 
 abstract class Failure {
@@ -12,7 +13,10 @@ class ServerFailure extends Failure {
     if (e is DioException) {
       final errorMessage = _mapDioErrorToMessage(e);
       return ServerFailure(errorMessage);
-    } else {
+    }else if(e is ServerException){
+        return ServerFailure(e.errorMessage);
+    }
+     else {
       return ServerFailure(
           "حدث خطأ غير معروف. يرجى المحاولة مرة أخرى لاحقًا.");
     }

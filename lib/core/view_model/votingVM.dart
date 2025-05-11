@@ -7,7 +7,7 @@ import '../../helper/error/failures.dart';
 class VotingVM{
    final Dio dio;
    VotingVM(this.dio);
-    String token='eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJvbWVyIiwiaWF0IjoxNzQ1NTYwNzUzLCJleHAiOjE3NDU1NjIxOTN9.x5fYP6oZ6zLR1hMJ2v1l5yjrGhVV2huzSUBXG6c0E9c';
+    String token='eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJvbWVyIiwiaWF0IjoxNzQ2NjQyNTQyLCJleHAiOjE3NDcyNDczNDJ9.0qbUsUxH0Az1LywNIi5VLdOab8l-wkLJMtLEP8faJaY';
   final ApiException apiException = ApiException();
  Future<Either<Failure,void>> postVote({required int productBarcode,required Map<String,int>voteData})async{
     try {

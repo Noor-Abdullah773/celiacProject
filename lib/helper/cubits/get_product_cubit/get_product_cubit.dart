@@ -11,27 +11,28 @@ class ProductCubit extends Cubit<ProductState>{
   int page =1;
   void gerProducts({ bool fromLoading=false})async{
     if(fromLoading){
-      emit(GetProductFromPaginationLoading());
+      emit(GetProductFromPaginationLoading()); // التي تظهر اسفل
     }
     else{
         emit(ProductLoadingState());
     }
   final result = await ProductsVM(Dio()).get(pageNumber:page);//result maby product or fuilur
-  if(result == [])
-  {
-    print(result);
-  }
-  result.fold((fuilur) =>{
-    emit(ProductErrorState(errorMessage:fuilur.errorMessage))
+  result.fold((fuilur) async =>{
+    if(page !=1)
+    emit(ProductErrorPaginationState(errorMessage: fuilur.errorMessage)),
+    // emit(ProductErrorState(errorMessage:fuilur.errorMessage)),
+    await Future.delayed(Duration(seconds: 2)),
+    emit(ProductInitialState()),
+    // page = 1,
   }, 
   (products) =>{
-    
     if(products.isEmpty){
       emit(ProductState())
     }
     else{
         page++,
       _list.addAll(products),
+      print('product Loaded'),
       emit(ProductLoadedState(products:_list))
     }
 

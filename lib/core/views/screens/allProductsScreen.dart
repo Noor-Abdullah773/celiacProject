@@ -28,12 +28,18 @@ class AllProductsScreen extends StatelessWidget {
       child: Scaffold(
         body: AllProductScreenBody(),
         bottomNavigationBar:BlocBuilder<ProductCubit,ProductState>(
-          buildWhen: (previous, current) => current is GetProductFromPaginationLoading ||current is ProductLoadedState || current is ProductErrorState,
+              buildWhen: (previous, current) => current is GetProductFromPaginationLoading ||current is ProductLoadedState || current is ProductErrorState || current is ProductErrorPaginationState || current is ProductInitialState,
           builder:(context,state){
           if(state is GetProductFromPaginationLoading)
           {
             return WidgetLoadingPagination();
-          }else{
+          }else if(state is ProductErrorPaginationState){
+            return SafeArea(child: SizedBox(
+            height: 60,
+            child: Center(child:Text(state.errorMessage)),
+          ),);
+          }
+          else{
             return SizedBox.shrink();
           }
         })
