@@ -1,6 +1,5 @@
 import 'package:celus_fe/core/constants/app_colors.dart';
 import 'package:flutter/material.dart';
-
 import '../../constants/text_styles.dart';
 import '../../models/product.dart';
 import 'columnNagitive.dart';
@@ -98,8 +97,6 @@ class _CustomProductUIState extends State<CustomProductUI> {
                   ),
                 ],
                 )
-
-             
              
             ]),
 

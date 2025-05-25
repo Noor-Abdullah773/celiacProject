@@ -103,6 +103,9 @@ class _DoneAddProductState extends State<DoneAddProduct> {
                             )
                           ],
                         )),
+                        onTap:(){
+                          
+                        } ,
                   ),
                   CustomContainer(
                       colorContainer: AppColors.pinck,

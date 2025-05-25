@@ -2,6 +2,8 @@ import 'package:celus_fe/core/constants/text_styles.dart';
 import 'package:celus_fe/core/models/product.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
+import '../../classes/voteData.dart';
 import '../../constants/app_colors.dart';
 import '../../models/choise.dart';
 import '../../view_model/sourcesVM.dart';
@@ -19,16 +21,8 @@ final Product product;
 
 class _ColumnPosativeState extends State<ColumnPosative> {
    @override
-    Map<String,int>vote={
-     'contributionDecision':1,
-      'reasonId':1,
-      'sourceId':1
-    };
-     Map<String,int>deleteVote={
-     'contributionDecision':2,
-      'reasonId':2,
-      'sourceId':2
-    };
+   bool isLoading=false;
+   VoteData voteData=VoteData();
   late Future<List<ChoiseModel>> future;
   void initState() {
     super.initState();
@@ -42,36 +36,55 @@ class _ColumnPosativeState extends State<ColumnPosative> {
       builder:(con,snapshot){
         if(snapshot.hasData)
         {
-          return Column(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: [
-            ContainerIcon(imagePath:'assets/images/ok.png', backgroundIcon:AppColors.lightGreen, containerH:45, containerW:45,
-            imageH:32.73 ,
-            imageW:32.73 ,
-            ),
-            const Text('مصدر المعلومات:',style:AppTextStyle.bold18_black ,),
-             GestureDetector(child: CustomContainerDialog(color:AppColors.darkBlue,text:snapshot.data![0].text ,height: 49, width:228, textStyle:AppTextStyle.bold14_white ,),
-            onTap: (){ 
-               if (widget.product.voteStatus==null || widget.product.voteStatus=="UNSAFE") {
-                VotingVM(Dio()).postVote(productBarcode:int.parse(widget.product.barcode!) , voteData:vote);
-              }else if(widget.product.voteStatus=="SAFE"){
-                VotingVM(Dio()).postVote(productBarcode:int.parse(widget.product.barcode!) , voteData:deleteVote);
-              }
-            Navigator.pushNamed(context, "/allProductionScreen" );
-            },
-            ),
-            GestureDetector(child: CustomContainerDialog(color:AppColors.darkBlue,text: snapshot.data![1].text,height: 49, width:228,textStyle:AppTextStyle.bold14_white),
-            onTap: (){  print('befor${widget.product.voteStatus}');
-               if (widget.product.voteStatus==null || widget.product.voteStatus=="UNSAFE") {
-                VotingVM(Dio()).postVote(productBarcode:int.parse(widget.product.barcode!) , voteData:vote);
-              }else if(widget.product.voteStatus=="SAFE"){
-                VotingVM(Dio()).postVote(productBarcode:int.parse(widget.product.barcode!) , voteData:deleteVote);
-              }print('after${widget.product.voteStatus}');
-            Navigator.pushNamed(context, "/allProductionScreen" );
-            },
-            ),
-            const CustomContainerDialog(color: AppColors.red, text:'إلغاء',height: 49, width:228,textStyle:AppTextStyle.bold14_white)
-          ],);
+          return ModalProgressHUD(
+            inAsyncCall:isLoading,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+              ContainerIcon(imagePath:'assets/images/ok.png', backgroundIcon:AppColors.lightGreen, containerH:45, containerW:45,
+              imageH:32.73 ,
+              imageW:32.73 ,
+              ),
+              const Text('مصدر المعلومات:',style:AppTextStyle.bold18_black ,),
+               GestureDetector(child: CustomContainerDialog(color:AppColors.darkBlue,text:snapshot.data![0].text ,height: 49, width:228, textStyle:AppTextStyle.bold14_white ,),
+              onTap: ()async{ 
+                isLoading =true;
+                setState(() {
+                  
+                });
+                 if (widget.product.voteStatus==null || widget.product.voteStatus=="UNSAFE") {
+                 await VotingVM(Dio()).postVote(productBarcode:int.parse(widget.product.barcode!) , voteData:voteData.positiveVote);
+                }else if(widget.product.voteStatus=="SAFE"){
+                 await VotingVM(Dio()).postVote(productBarcode:int.parse(widget.product.barcode!) , voteData:voteData.deleteVote);
+                }
+                isLoading=false;
+                setState(() {
+                  
+                });
+              Navigator.pushNamed(context, "/allProductionScreen" );
+              },
+              ),
+              GestureDetector(child: CustomContainerDialog(color:AppColors.darkBlue,text: snapshot.data![1].text,height: 49, width:228,textStyle:AppTextStyle.bold14_white),
+              onTap: ()async{  
+                isLoading =true;
+                setState(() {
+                  
+                });
+                 if (widget.product.voteStatus==null || widget.product.voteStatus=="UNSAFE") {
+                 await VotingVM(Dio()).postVote(productBarcode:int.parse(widget.product.barcode!) , voteData:voteData.positiveVote);
+                }else if(widget.product.voteStatus=="SAFE"){
+                 await VotingVM(Dio()).postVote(productBarcode:int.parse(widget.product.barcode!) , voteData:voteData.deleteVote);
+                }
+                isLoading =false;
+                setState(() {
+                  
+                });
+              Navigator.pushNamed(context, "/allProductionScreen" );
+              },
+              ),
+              const CustomContainerDialog(color: AppColors.red, text:'إلغاء',height: 49, width:228,textStyle:AppTextStyle.bold14_white)
+            ],),
+          );
         }
         else if(snapshot.hasError){
           return const Text('error');
