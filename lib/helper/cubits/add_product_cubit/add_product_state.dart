@@ -1,7 +1,7 @@
 class AddProductState{}
 class DoneAddProductState extends AddProductState{
-  final String name;
-  DoneAddProductState({required this.name});
+  final String barcode;
+  DoneAddProductState({required this.barcode});
 }
 class InitailAddProductState extends AddProductState{ }
 class LoadingAddProductState extends AddProductState{}

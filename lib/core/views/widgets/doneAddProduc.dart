@@ -1,17 +1,15 @@
 
-import 'package:dio/dio.dart';
+import 'package:celus_fe/core/views/widgets/voteColumnAfterAddPro.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import '../../constants/app_colors.dart';
 import '../../constants/text_styles.dart';
-import '../../models/product.dart';
-import '../../view_model/searchByName.dart';
 import 'customContainerDialog.dart';
 import 'customContainrtWithWidget.dart';
 
 class DoneAddProduct extends StatefulWidget {
-  const DoneAddProduct({super.key,required this.name});
-final String name;
+  const DoneAddProduct({super.key,required this.barcode});
+final String barcode;
   @override
   State<DoneAddProduct> createState() => _DoneAddProductState();
 }
@@ -19,14 +17,7 @@ final String name;
 class _DoneAddProductState extends State<DoneAddProduct> {
   @override
   var product;
-  Future<Product?>? receivedData()async{
-    final result = await SearchByNameVM(Dio()).get(name: widget.name);
-    return result.fold((l){
-      return null;
-    }, (Product) {
-   return product;
-    });
-  }
+  
   void initState() {
     
     super.initState();
@@ -76,57 +67,8 @@ class _DoneAddProductState extends State<DoneAddProduct> {
           colorContainer: AppColors.greyContainer,
           widget: Padding(
               padding: EdgeInsets.symmetric(horizontal: 15, vertical: 8),
-              child: Column(
-                children: [
-                  Text('هل تعرف إذا كان هذا المنتج مناسب لمريض السيلياك؟',
-                      style: AppTextStyle.bold12_mediemGrey,
-                      textAlign: TextAlign.center),
-                  SizedBox(
-                    height: 8,
-                  ),
-                  GestureDetector(
-                    child: CustomContainer(
-                        colorContainer: AppColors.lightGreen,
-                        colorBorder: AppColors.lightGreen,
-                        widget: Row(
-                          children: [
-                            Image.asset(
-                              'assets/images/ok.png',
-                              fit: BoxFit.fill,
-                            ),
-                            SizedBox(
-                              width: 7,
-                            ),
-                            Text(
-                              'مناسب لمريض السيلياك',
-                              style: AppTextStyle.darkGreen10,
-                            )
-                          ],
-                        )),
-                        onTap:(){
-                          
-                        } ,
-                  ),
-                  CustomContainer(
-                      colorContainer: AppColors.pinck,
-                      colorBorder: AppColors.pinck,
-                      widget: Row(
-                        children: [
-                          Image.asset(
-                            'assets/images/ok.png',
-                            fit: BoxFit.fill,
-                          ),
-                          SizedBox(
-                            width: 7,
-                          ),
-                          Text(
-                            'غير مناسب لمريض السيلياك',
-                            style: AppTextStyle.darkPinck10,
-                          )
-                        ],
-                      ))
-                ],
-              )),
+              child:CustomVoteColumn(barcode:widget.barcode,)
+              ),
         ),
         SizedBox(height: 8),
         Center(

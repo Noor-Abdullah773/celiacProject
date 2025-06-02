@@ -6,7 +6,7 @@ import '../../helper/error/failures.dart';
 class AddProductVM{
    final Dio dio;
    AddProductVM(this.dio);
-    String token='eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJvbWVyIiwiaWF0IjoxNzQ4MTE2MjAyLCJleHAiOjE3NDg3MjEwMDJ9.YXhZ-v39qEMAPIR5vJS4lOYtASQwKhjb6igGitjxkNI';
+    String token='eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJvbWVyIiwiaWF0IjoxNzQ4NzY5MDIxLCJleHAiOjE3NDkzNzM4MjF9.DnQ8vT6ATizECRf5N8or8BdECz2Ya0yMcRX0bhGxvqA';
   final ApiException apiException = ApiException();
 
   Future<Either<Failure, String>> postProduct({required Map<String,dynamic>productUploaderData})async{
@@ -18,7 +18,7 @@ class AddProductVM{
         headers:{'Authorization': 'Bearer $token','Content-Type': 'multipart/form-data'}, 
       ),);
    print("ok");
- return Right(productUploaderData['productName']);
+ return Right(productUploaderData['barcode']);
 }  catch (e) {
   print(ServerFailure.handleException(e).errorMessage);
   return Left(ServerFailure.handleException(e));

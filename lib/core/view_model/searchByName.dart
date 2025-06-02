@@ -10,7 +10,7 @@ class SearchByNameVM{
   final ApiException apiException = ApiException();
   SearchByNameVM(this.dio);
   String token =
-      'eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJvbWVyIiwiaWF0IjoxNzQ4MTE2MjAyLCJleHAiOjE3NDg3MjEwMDJ9.YXhZ-v39qEMAPIR5vJS4lOYtASQwKhjb6igGitjxkNI';
+      'eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJvbWVyIiwiaWF0IjoxNzQ4NzY5MDIxLCJleHAiOjE3NDkzNzM4MjF9.DnQ8vT6ATizECRf5N8or8BdECz2Ya0yMcRX0bhGxvqA';
 
   Future<Either<Failure, List<Product>>> get({required name}) async {
     try {
