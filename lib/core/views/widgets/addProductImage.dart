@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -11,11 +13,19 @@ import '../../constants/text_styles.dart';
 import '../../models/productUploader.dart';
 import '../../view_model/addProductVM.dart';
 import 'customContainerDialog.dart';
+import 'customContainrtWithWidget.dart';
 import 'dialogImage.dart';
 
-class AddProductImage extends StatelessWidget {
+class AddProductImage extends StatefulWidget {
   const AddProductImage({super.key,required this.productUploader});
 final ProductUploader productUploader;
+
+  @override
+  State<AddProductImage> createState() => _AddProductImageState();
+}
+
+class _AddProductImageState extends State<AddProductImage> {
+   XFile? productImage=null;
   @override
   Widget build(BuildContext context) {
     return ListView(
@@ -42,44 +52,77 @@ final ProductUploader productUploader;
             textAlign:TextAlign.center ,),
         ),
         SizedBox(height: 25,),
+        productImage == null?
         Center(child:GestureDetector(
           child: CustomContainerDialog(
             height:29 ,
             width:183 ,
             text:' التقط صورة للمنتج',color:AppColors.darkBlue ,textStyle:AppTextStyle.bold14_white),
             onTap: ()async{
-             XFile? productImage =await dialogImage(context);
+              productImage =await dialogImage(context);
              if(productImage != null){
-                  productUploader.productImage=productImage;
-                ScaffoldMessenger.of(context).showSnackBar(
-                  SnackBar(content: Text('تم اختيار صورة'),
-                  duration: Duration(seconds: 2),
-                  ),
-                );
+                  widget.productUploader.productImage=productImage;
+                  setState(() {
+                    
+                  });
                }
               },
         ) ,
-          ),
-          SizedBox(height:12,),
-        Center(child:GestureDetector(
-          child: CustomContainerDialog(
-            height:29 ,
-            width:183,
-            text:'التقط صورة للمكونات',color:AppColors.darkBlue ,textStyle:AppTextStyle.bold14_white),
-            onTap: ()async{
-             XFile? ingredientsImage =await dialogImage(context);
-             if(ingredientsImage != null){
-                  productUploader.ingredientsImage=ingredientsImage;
-                 ScaffoldMessenger.of(context).showSnackBar(
-                  SnackBar(content: Text('تم اختيار صورة'),
-                  duration: Duration(seconds: 2),
-                  ),
-                );
-               }
-              },
-        ) ,
-          ),
+          ):
+          Center(child: CustomContainer(
+            colorBorder: AppColors.darkBlue ,
+             colorContainer:Colors.white,
+              widget:Row(children: [
+              Expanded(
+                flex: 1,
+                child: Container(
+                 height:90,
+                child:ClipRRect(
+                   borderRadius: BorderRadius.circular(16),
+                  child:Image.file(File(productImage!.path),fit:BoxFit.fill ,),
+                ) ,
+                           ),
+              ),
+             SizedBox(width:5,),
+             Expanded(
+              flex: 2,
+              child: Text('صورة المنتج',style:AppTextStyle.bold14 ,)),
+             
+              Expanded(
+                flex: 1,
+                child: IconButton(
+                  onPressed:(){
+                    productImage=null;
+                    setState(() {
+                      
+                    });
+                  }, 
+                  icon:Icon(
+                    Icons.delete_forever_outlined,
+                    color:Colors.red ,
+                    size: 30,)),
+              )
+              ],),),),
+        // Center(child:GestureDetector(
+        //   child: CustomContainerDialog(
+        //     height:29 ,
+        //     width:183,
+        //     text:'التقط صورة للمكونات',color:AppColors.darkBlue ,textStyle:AppTextStyle.bold14_white),
+        //     onTap: ()async{
+        //      XFile? ingredientsImage =await dialogImage(context);
+        //      if(ingredientsImage != null){
+        //           productUploader.ingredientsImage=ingredientsImage;
+        //          ScaffoldMessenger.of(context).showSnackBar(
+        //           SnackBar(content: Text('تم اختيار صورة'),
+        //           duration: Duration(seconds: 2),
+        //           ),
+        //         );
+        //        }
+        //       },
+        // ) ,
+        //   ),
         SizedBox(height: 34,),
+        productImage !=null?
         Center(
           child: GestureDetector(
             child: CustomContainerDialog(
@@ -89,15 +132,11 @@ final ProductUploader productUploader;
               textStyle: AppTextStyle.bold14_white, 
               width:100,),
             onTap: ()async{
-              Map<String,dynamic> productUploaderData=await productUploader.toJson();
-             // print(productUploaderData);
-            // await AddProductVM(Dio()).postProduct(productUploaderData:productUploaderData);
+              Map<String,dynamic> productUploaderData=await widget.productUploader.toJson();
             BlocProvider.of<AddProductCubit>(context).addProduct(productUploaderData: productUploaderData);
-             
-             
             },
           ),
-        )
+        ):SizedBox()
         ],);
   }
 }

@@ -2,7 +2,6 @@ import 'package:barcode_scan2/platform_wrapper.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:image_picker/image_picker.dart';
 import '../../constants/app_colors.dart';
 import '../../constants/text_styles.dart';
 import '../../models/product.dart';

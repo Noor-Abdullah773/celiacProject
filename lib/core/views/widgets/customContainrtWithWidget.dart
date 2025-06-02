@@ -18,7 +18,7 @@ final Widget widget;
                   border:Border.all(color:colorBorder)
                 ) ,
                 child: Padding(
-                  padding:  const EdgeInsets.only(right:15 ,left:15),
+                  padding:  const EdgeInsets.only(right:15 ,left:15,top:10,bottom:10),
                   child: Center(child:widget ),
                 ),
               );

@@ -7,10 +7,10 @@ class ProductUploader{
   String manufacturerCountry;
   String brandName;
   XFile? productImage;
-  XFile? ingredientsImage;
+ // XFile? ingredientsImage;
 
   ProductUploader({required this.productName,required this.brandName,required this.manufacturerCountry,
-  required this.barcode,this.ingredientsImage,this.productImage
+  required this.barcode,this.productImage
   });
   factory ProductUploader.fromJson(Map<String, dynamic> json) {
     return ProductUploader(
@@ -19,7 +19,7 @@ class ProductUploader{
       manufacturerCountry: json['manufacturerCountry'], 
       barcode: json['barcode'], 
       productImage:XFile(json['productImage']), 
-      ingredientsImage:  XFile(json['ingredientsImage'])
+      //ingredientsImage:  XFile(json['ingredientsImage'])
       );
   }
   Future <Map<String, dynamic>> toJson()async {
@@ -29,7 +29,7 @@ class ProductUploader{
     data['manufacturerCountry'] = this.manufacturerCountry;
     data['barcode'] = this.barcode;
     data['productImage'] =await MultipartFile.fromFile (productImage!.path);
-    data['ingredientsImage'] =await MultipartFile.fromFile (ingredientsImage!.path);
+   // data['ingredientsImage'] =await MultipartFile.fromFile (ingredientsImage!.path);
     return data;
   }
 
