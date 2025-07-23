@@ -17,7 +17,12 @@ class AddProductScreen extends StatelessWidget {
    
     return Scaffold(
       body:BigStuck(widget:Padding
-      (padding:EdgeInsets.only(right:30,left: 30,top:25 ,),
+      (padding:EdgeInsets.only(
+        right:30,
+        left: 30,
+        top:25 ,
+        bottom: MediaQuery.of(context).viewInsets.bottom
+        ),
        child:ListView(
         padding: EdgeInsets.only(bottom:200),
         children: [

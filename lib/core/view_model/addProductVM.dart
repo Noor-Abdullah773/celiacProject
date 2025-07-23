@@ -4,9 +4,10 @@ import 'package:dio/dio.dart';
 import '../../helper/apiException.dart';
 import '../../helper/error/failures.dart';
 class AddProductVM{
+  
    final Dio dio;
    AddProductVM(this.dio);
-    String token='eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJvbWVyIiwiaWF0IjoxNzQ4NzY5MDIxLCJleHAiOjE3NDkzNzM4MjF9.DnQ8vT6ATizECRf5N8or8BdECz2Ya0yMcRX0bhGxvqA';
+    String token='eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJvbWVyIiwiaWF0IjoxNzUyNzMyMDIyLCJleHAiOjE3NTMzMzY4MjJ9.Pe-acEChcPybygu3EyUe9Q5zN_4aoAm6Mo2Qyx1l4WA';
   final ApiException apiException = ApiException();
 
   Future<Either<Failure, String>> postProduct({required Map<String,dynamic>productUploaderData})async{

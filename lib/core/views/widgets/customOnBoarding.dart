@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-
 import '../../models/OnBoarding.dart';
-import '../screens/signinScreen.dart';
 import 'circularIndicator.dart';
 
 class CustomOnBoardingWidget extends StatelessWidget {

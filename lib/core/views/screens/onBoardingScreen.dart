@@ -1,9 +1,8 @@
 import 'package:celus_fe/core/views/widgets/bigStack.dart';
 import 'package:celus_fe/core/views/widgets/customOnBoarding.dart';
 import 'package:flutter/material.dart';
-
 import '../../models/OnBoarding.dart';
-import '../widgets/circularIndicator.dart';
+
 
 class OnBoarding extends StatefulWidget {
   const OnBoarding({super.key});
@@ -36,8 +35,6 @@ class _OnBoardingState extends State<OnBoarding> {
   Widget build(BuildContext context) {
     return Scaffold(
       body:BigStuck(widget: 
-     
-           
              Expanded(child: 
              PageView.builder(
                itemCount:listOnBoarding.length,
